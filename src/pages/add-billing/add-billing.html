@@ -1,0 +1,105 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ title }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding #containerBilling>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list class="listBilling">
+            <ion-item>
+              <ion-label >{{'code'|translate}}</ion-label>
+              <ion-input name="code" ngModel="{{ codeBilling }}" type="text" #first="ngModel"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list class="listBilling">
+            <ion-item>
+              <ion-label >{{'name'|translate}}</ion-label>
+              <ion-input name="name" ngModel="{{ nameBilling }}" type="text" required ></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-11 col-sm-11 col-md-5 col-lg-5 style="padding: 0;" *ngIf="!clientSelected">
+          <ion-list>
+            <ion-item>
+              <ion-list>
+                <ion-row>
+                  <ion-col col-12 col-sm-12 col-md-3 col-lg-3>
+                    {{'clients'|translate}}
+                  </ion-col>
+                  <ion-col col-12 col-sm-12 col-md-9 col-lg-9>
+                    <ion-searchbar [(ngModel)]="inputSearch" (ionInput)="getItems($event)" item-start placeholder="{{ 'clients'|translate }}" animated="true" autocomplete="on" autocorrect="on" spellcheck="true" [ngModelOptions]="{standalone: true}"></ion-searchbar>
+                  </ion-col>
+                </ion-row>
+              </ion-list>
+            </ion-item>
+            <ion-card *ngIf="!empty" class="clientList">
+              <ion-item (click)="selectClient(item);empty = true;inputSearch = null" *ngFor="let item of clientsList">
+                <ion-avatar item-start>
+                  <img [defaultImage]="'../../assets/icon/spinner.gif'" [lazyLoad]="item?.image?.path || '../../assets/icon/profile.jpg'" [scrollObservable]="containerBilling.ionScroll">
+                </ion-avatar>
+                <ion-row>
+                  <ion-col col-12 col-sm-12 col-md-12 col-lg-6>
+                    <h2>{{item?.name + ' ' + item?.surname}}</h2>
+                  </ion-col>
+                  <ion-col col-12 col-sm-12 col-md-12 col-lg-6 style="text-align: right">
+                    <h3>{{ item?.code }}</h3>
+                  </ion-col>
+                </ion-row>
+                <p>{{ item.address[0]?.address + ', ' + item.address[0]?.city?.name + ', ' + item.address[0]?.province?.name + ', ' + item.address[0]?.country?.name }}</p>
+              </ion-item>
+            </ion-card>
+          </ion-list>
+        </ion-col>
+        <ion-col col-1 style="padding-top: 28px;" *ngIf="!clientSelected">
+          <ion-icon name="arrow-dropdown" (click)="empty = !empty"></ion-icon>
+        </ion-col>
+        <ion-col col-11 col-sm-11 col-md-5 col-lg-5 *ngIf="clientSelected">
+          <ion-list>
+            <ion-item>
+              <ion-avatar item-start>
+                <img [defaultImage]="'../../assets/icon/spinner.gif'" [lazyLoad]="clientSelected?.image?.path || '../../assets/icon/profile.jpg'" [scrollObservable]="containerBilling.ionScroll">
+              </ion-avatar>
+              <ion-row>
+                <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+                  <h2>{{clientSelected?.name + ' ' + clientSelected?.surname}}</h2>
+                </ion-col>
+                <ion-col col-12 col-sm-12 col-md-6 col-lg-6 style="text-align: right">
+                  <h3>{{ clientSelected?.code }}</h3>
+                </ion-col>
+              </ion-row>
+              <p>{{ clientSelected.address[0]?.address + ', ' + clientSelected.address[0]?.city?.name + ', ' + clientSelected.address[0]?.province?.name + ', ' + clientSelected.address[0]?.country?.name }}</p>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-1 style="padding-top: 28px;" *ngIf="clientSelected">
+          <ion-icon name="close-circle" color="danger" (click)="clientSelected = null"></ion-icon>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-12 col-lg-12>
+          <ion-list>
+            <ion-item>
+              <ion-label><ion-icon name="document"></ion-icon></ion-label>
+              <ion-input   name="description"  ngModel="{{ descriptionBilling }}"  type="text" placeholder="{{'description'|translate}}"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <button type="submit" ion-button>{{'save'|translate}}</button>
+    <button ion-button color="danger" (click)="f.resetForm()" onclick="event.stopPropagation();event.preventDefault()">{{'erase'|translate}}</button>
+
+  </form>
+
+
+
+</ion-content>

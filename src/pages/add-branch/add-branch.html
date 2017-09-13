@@ -1,0 +1,156 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ title }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-item style="text-align: center;">
+              <span class="result rounded" [hidden]="data1.image || !photoBranch">
+                <img [src]="photoBranch" [width]="cropperSettings1.croppedWidth" [height]="cropperSettings1.croppedHeight" (click)="openImage()">
+            </span>
+              <span class="result rounded" [hidden]="!data1.image">
+                <img [src]="data1.image" [width]="cropperSettings1.croppedWidth" [height]="cropperSettings1.croppedHeight" (click)="openImage()">
+            </span>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list class="listBranch">
+            <ion-item>
+              <ion-label >{{'code'|translate}}</ion-label>
+              <ion-input name="code" ngModel="{{ codeBranch }}" type="text" #first="ngModel"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label >{{'name'|translate}}</ion-label>
+              <ion-input name="name" ngModel="{{ nameBranch }}" type="text" required ></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-item style="border-bottom: 1px solid #dedede">
+              <ion-label>{{'country'|translate}}</ion-label>
+              <ion-select  name="country"  ngModel="{{ countryBranch }}" (ngModelChange)="httpProvider.getProvince($event)" >
+                <ion-option *ngFor="let c of httpProvider.countries" value="{{ c.id }}" (ionSelect)="getName('country',c.name)">{{ c.name }}</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-item style="    border-bottom: 1px solid #dedede">
+              <ion-label>{{'province'|translate}}</ion-label>
+              <ion-select name="province"  ngModel="{{ provinceBranch }}"  (ngModelChange)="getPlace($event)" [disabled]="!httpProvider.provincesActive">
+                <ion-option *ngFor="let p of httpProvider.provinces" value="{{ p.id }}" (ionSelect)="getName('province',p.name)">{{ p.name }}</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-item style="    border-bottom: 1px solid #dedede">
+              <ion-label>{{'place'|translate}}</ion-label>
+              <ion-select name="place"  ngModel="{{ placeBranch }}" (ngModelChange)="getCity($event)" [disabled]="!httpProvider.placesActive">
+                <ion-option *ngFor="let pl of httpProvider.places" value="{{ pl.id }}" (ionSelect)="getName('place',pl.name)">{{ pl.name }}</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-item style="    border-bottom: 1px solid #dedede">
+              <ion-label>{{'city'|translate}}</ion-label>
+              <ion-select name="city"  ngModel="{{ cityBranch }}" (ngModelChange)="selectedCity($event)" [disabled]="!httpProvider.cityActive">
+                <ion-option *ngFor="let c of httpProvider.city" value="{{ c.id }}" (ionSelect)="getName('city',c.name)">{{ c.name }}</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-9 col-md-9 col-lg-9>
+          <ion-list>
+            <ion-item>
+              <ion-label >{{'address'|translate}}</ion-label>
+              <ion-input  name="address"  ngModel="{{ addressBranch }}" required type="text"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-3 col-md-3 col-lg-3>
+          <ion-list>
+            <ion-item>
+              <ion-label >{{'postalcode'|translate}}</ion-label>
+              <ion-input   name="postalCode"  ngModel="{{ postalCodeBranch }}" type="text"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12>
+          <div id="map" class="mapboxgl-map"></div>
+        </ion-col>
+
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-item>
+              <ion-label ><ion-icon name="mail"></ion-icon></ion-label>
+              <ion-input   name="email"  ngModel="{{ emailBranch }}"  type="text"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-item>
+              <ion-label ><ion-icon name="call"></ion-icon></ion-label>
+              <ion-input  name="phone" ngModel="{{ phoneBranch }}"  type="text"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-row id="relation-priceListAdd">
+              <ion-col col-11>
+                <ion-item style="border-bottom: 1px solid #dedede">
+                  <ion-label>{{ 'priceList'|translate }}</ion-label>
+                  <ion-input (click)="viewRelationsPriceList(relationPriceList)" disabled ([ngModel])="relationPriceList" placeholder="{{ relationPriceList?.name }}"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col col-1>
+                <ion-icon name="close-circle" color="danger" (click)="relationPriceList = null" style="vertical-align: -15px;" *ngIf="relationPriceList"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-row id="relation-depositAdd">
+              <ion-col col-11>
+                <ion-item style="border-bottom: 1px solid #dedede">
+                  <ion-label>{{ 'deposit'|translate }}</ion-label>
+                  <ion-input (click)="viewRelationsDeposit(relationDeposit)" disabled ([ngModel])="relationDeposit" placeholder="{{ relationDeposit?.name }}"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col col-1>
+                <ion-icon name="close-circle" color="danger" (click)="relationDeposit = null" style="vertical-align: -15px;" *ngIf="relationDeposit"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-list>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+
+
+    <button type="submit" ion-button>{{'save'|translate}}</button>
+    <button ion-button color="danger" (click)="f.resetForm()" onclick="event.stopPropagation();event.preventDefault()">{{'erase'|translate}}</button>
+
+  </form>
+
+
+
+</ion-content>

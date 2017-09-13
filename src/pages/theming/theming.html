@@ -1,0 +1,55 @@
+<ion-header>
+
+  <ion-navbar hideBackButton>
+    <ion-title>Theming</ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content padding>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6 col-sm-4 col-md-4 col-lg-3>
+        <ion-card class="button-height">
+            <button ion-button (click)="toggleAppTheme('light-theme')" class="button-class">Default</button>
+        </ion-card>
+      </ion-col>
+      <ion-col col-6 col-sm-4 col-md-4 col-lg-3>
+        <ion-card class="button-height">
+          <button ion-button color="dark" (click)="toggleAppTheme('dark-theme')" class="button-class">Dark</button>
+        </ion-card>
+      </ion-col>
+      <ion-col col-6 col-sm-4 col-md-4 col-lg-3>
+        <ion-card class="button-height">
+          <button ion-button color="glups-1" (click)="toggleAppTheme('glups-theme')" class="button-class">Glups</button>
+        </ion-card>
+      </ion-col>
+      <ion-col col-6 col-sm-4 col-md-4 col-lg-3>
+        <ion-card class="button-height">
+          <button ion-button color="orange-1" (click)="toggleAppTheme('orange-theme')" class="button-class">Orange</button>
+        </ion-card>
+      </ion-col>
+      <ion-col col-6 col-sm-4 col-md-4 col-lg-3>
+        <ion-card class="button-height">
+          <button ion-button color="blue-1" (click)="toggleAppTheme('blue-theme')" class="button-class">Blue</button>
+        </ion-card>
+      </ion-col>
+      <ion-col col-6 col-sm-4 col-md-4 col-lg-3>
+        <ion-card class="button-height">
+          <button ion-button color="white-1" (click)="toggleAppTheme('white-theme')" class="button-class">White</button>
+        </ion-card>
+      </ion-col>
+      <ion-col col-6 col-sm-4 col-md-4 col-lg-3>
+        <ion-card class="button-height">
+          <button ion-button color="grido-1" (click)="toggleAppTheme('grido-theme')" class="button-class">Grido</button>
+        </ion-card>
+      </ion-col>
+      <ion-col col-6 col-sm-4 col-md-4 col-lg-3>
+        <ion-card class="button-height">
+          <button ion-button color="green-1" (click)="toggleAppTheme('green-theme')" class="button-class">Green</button>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

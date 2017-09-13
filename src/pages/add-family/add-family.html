@@ -1,0 +1,73 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ title }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-item style="text-align: center;">
+              <span class="result rounded" [hidden]="data1.image || !photoFamily">
+                <img [src]="photoFamily" [width]="cropperSettings1.croppedWidth" [height]="cropperSettings1.croppedHeight" (click)="openImage()">
+            </span>
+              <span class="result rounded" [hidden]="!data1.image">
+                <img [src]="data1.image" [width]="cropperSettings1.croppedWidth" [height]="cropperSettings1.croppedHeight" (click)="openImage()">
+            </span>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list class="listFamily">
+            <ion-item>
+              <ion-label >{{'code'|translate}}</ion-label>
+              <ion-input name="code" ngModel="{{ codeFamily }}" type="text" #first="ngModel"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label >{{'name'|translate}}</ion-label>
+              <ion-input name="name" ngModel="{{ nameFamily }}" type="text" required ></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-item>
+              <ion-label><ion-icon name="document"></ion-icon></ion-label>
+              <ion-input   name="description"  ngModel="{{ descriptionFamily }}"  type="text" placeholder="{{'description'|translate}}"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-row id="relation-familyAdd">
+              <ion-col col-11>
+            <ion-item style="border-bottom: 1px solid #dedede">
+              <ion-label>{{ 'relation'|translate }}</ion-label>
+              <ion-input (click)="viewRelations(relation)" disabled ([ngModel])="relation" placeholder="{{ relation?.name }}"></ion-input>
+            </ion-item>
+              </ion-col>
+              <ion-col col-1>
+                <ion-icon name="close-circle" color="danger" (click)="relation = null" style="vertical-align: -15px;" *ngIf="relation"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <button type="submit" ion-button>{{'save'|translate}}</button>
+    <button ion-button color="danger" (click)="f.resetForm()" onclick="event.stopPropagation();event.preventDefault()">{{'erase'|translate}}</button>
+
+  </form>
+
+
+
+</ion-content>

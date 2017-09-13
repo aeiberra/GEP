@@ -1,0 +1,43 @@
+<ion-header>
+
+  <ion-navbar hideBackButton>
+    <ion-title>{{ 'users' | translate }}</ion-title>
+    <ion-buttons end>
+      <button ion-button clear icon-only (click)="addUser()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+<ion-content padding #containerUsers>
+
+  <ion-list>
+    <ion-searchbar (ionInput)="getItems($event)" item-start placeholder="{{ 'search_searchBar'|translate }}" animated="true" autocomplete="on" autocorrect="on" spellcheck="true"></ion-searchbar>
+
+    <ion-list>
+      <ion-item-sliding *ngFor="let item of usersList" >
+        <ion-item (click)="viewUser($event,item)" (press)="editUser(item)">
+          <ion-avatar item-start>
+            <img [defaultImage]="'../../assets/icon/profile.jpg'" [lazyLoad]="item?.image?.path" [scrollObservable]="containerUsers.ionScroll">
+          </ion-avatar>
+          <ion-row>
+            <ion-col col-6>
+              <h2>{{item?.name + ' ' + item?.surname}}</h2>
+            </ion-col>
+            <ion-col col-6 style="text-align: right">
+              <h3>{{ item?.phone }}</h3>
+            </ion-col>
+          </ion-row>
+          <p>{{ item?.user }}</p>
+        </ion-item>
+
+        <ion-item-options side="right">
+          <button ion-button (click)="editUser(item)">{{ 'edit' | translate }}</button>
+          <button ion-button color="danger" (click)="deleteUser(item)">{{ 'deleteObject' | translate }}</button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
+  </ion-list>
+</ion-content>

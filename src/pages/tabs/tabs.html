@@ -1,0 +1,7 @@
+<ion-tabs #myTabs id="myTabs">
+  <ion-tab [root]="tab1Root" tabTitle="{{ 'merchandise' | translate }}" tabIcon="cart" (ionSelect)="selected(0,'mercaderia')"></ion-tab>
+  <ion-tab [root]="tab2Root" tabTitle="{{ 'sales' | translate }}" tabIcon="information-circle" (ionSelect)="selected(1,'ventas')"></ion-tab>
+  <ion-tab [root]="tab3Root" tabTitle="{{ 'suppliers' | translate }}" tabIcon="car" (ionSelect)="selected(2,'proveedores')"></ion-tab>
+  <ion-tab [root]="tab5Root" tabTitle="{{ 'configuration' | translate }}" tabIcon="settings" (ionSelect)="selected(4,'config')"></ion-tab>
+</ion-tabs>
+

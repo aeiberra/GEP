@@ -1,0 +1,20 @@
+page-add-tax {
+  #grid2-addBrand{
+    .list-ios > .item-block:last-child{
+      border:0
+    }
+    .list-ios > .item-block:first-child{
+      border: 0;
+
+    }
+    .list-md > .item-block:last-child{
+      border: 0;
+    }
+    .list-md > .item-block:first-child{
+      border: 0;
+    }
+  }
+  .listBrand .item-block{
+    padding-left: 0!important;
+  }
+}

@@ -1,0 +1,198 @@
+// Ionic Variables and Theming. For more info, please see:
+// http://ionicframework.com/docs/v2/theming/
+$font-path: "../assets/fonts";
+
+@import "ionic.globals";
+
+
+
+// Shared Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass variables found in Ionic's source scss files.
+// To view all the possible Ionic variables, see:
+// http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
+
+.client-popover .popover-content{
+  width: 400px!important;
+  max-width: 90%!important;
+}
+.article-popover .popover-content{
+  width: 400px!important;
+  max-width: 90%!important;
+}
+.brand-popover .popover-content{
+  width: 400px!important;
+  max-width: 90%!important;
+}
+.family-popover .popover-content{
+  width: 400px!important;
+  max-width: 90%!important;
+}
+.measure-popover .popover-content{
+  width: 400px!important;
+  max-width: 90%!important;
+}
+.priceList-popover .popover-content{
+  width: 400px!important;
+  max-width: 90%!important;
+}
+.deposit-popover .popover-content{
+  width: 400px!important;
+  max-width: 90%!important;
+}
+.branch-popover .popover-content{
+  width: 400px!important;
+  max-width: 90%!important;
+}
+.seller-popover .popover-content{
+  width: 400px!important;
+  max-width: 90%!important;
+}
+.user-popover .popover-content{
+  width: 400px!important;
+  max-width: 90%!important;
+}
+.salesRS-popover .popover-content{
+  width: 400px!important;
+  max-width: 90%!important;
+}
+
+// Named Color Variables
+// --------------------------------------------------
+// Named colors makes it easy to reuse colors on various components.
+// It's highly recommended to change the default colors
+// to match your app's branding. Ionic uses a Sass map of
+// colors so you can add, rename and remove colors as needed.
+// The "primary" color is the only required color in the map.
+
+$colors: (
+  primary:    #488aff,
+  secondary:  #32db64,
+  danger:     #f53d3d,
+  light:      #f4f4f4,
+  dark:       #222,
+
+  icon-0:     #5cb85c,
+  icon-1:     #5bc0de,
+  icon-2:     #f0ad4e,
+  icon-3:     #f53d3d,
+
+  glups-1:          #ec008c,
+  glups-2:          #2c313d,
+  glups-icon-0:     #f53d3d,
+  glups-icon-1:     #f0ad4e,
+  glups-icon-2:     #5bc0de,
+  glups-icon-3:     #5cb85c,
+
+  orange-1:         #ff6600,
+  orange-2:         #fbfbfb,
+  orange-icon-0:    #f53d3d,
+  orange-icon-1:    #f0ad4e,
+  orange-icon-2:    #5bc0de,
+  orange-icon-3:    #5cb85c,
+
+  dark-1:           #ff6600,
+  dark-2:           #fbfbfb,
+  dark-icon-0:      #f53d3d,
+  dark-icon-1:      #f0ad4e,
+  dark-icon-2:      #5bc0de,
+  dark-icon-3:      #5cb85c,
+
+  blue-1:           #4a8bfc,
+  blue-2:           #f9fafb,
+  blue-icon-0:      #f53d3d,
+  blue-icon-1:      #f0ad4e,
+  blue-icon-2:      #5bc0de,
+  blue-icon-3:      #5cb85c,
+
+  white-1:          #fdfefe,
+  white-2:          #f9fafb,
+  white-icon-0:     #f53d3d,
+  white-icon-1:     #f0ad4e,
+  white-icon-2:     #5bc0de,
+  white-icon-3:     #5cb85c,
+
+  grido-1:          #134390,
+  grido-2:          #2c313d,
+  grido-icon-0:     #f53d3d,
+  grido-icon-1:     #f0ad4e,
+  grido-icon-2:     #5bc0de,
+  grido-icon-3:     #5cb85c,
+
+  green-1:          #70a83b,
+  green-2:          #fbfbfb,
+  green-icon-0:     #f53d3d,
+  green-icon-1:     #f0ad4e,
+  green-icon-2:     #5bc0de,
+  green-icon-3:     #5cb85c,
+
+);
+
+@import "theme.light";
+@import "theme.dark";
+@import "theme.glups";
+@import "theme.orange";
+@import "theme.blue";
+@import "theme.white";
+@import "theme.grido";
+@import "theme.green";
+
+//.bar-button-clear{
+//  color: map-get($colors, primary)!important;
+//}
+//.bar-button-default{
+//  color: map-get($colors, primary)!important;
+//}
+//.toolbar-title{
+//  color: map-get($colors, light)!important;
+//}
+//.toolbar-background{
+//  background:map-get($colors, background)!important;
+//}
+
+
+// App iOS Variables
+// --------------------------------------------------
+// iOS only Sass variables can go here
+
+
+
+
+// App Material Design Variables
+// --------------------------------------------------
+// Material Design only Sass variables can go here
+
+
+
+
+// App Windows Variables
+// --------------------------------------------------
+// Windows only Sass variables can go here
+
+
+
+
+// App Theme
+// --------------------------------------------------
+// Ionic apps can have different themes applied, which can
+// then be future customized. This import comes last
+// so that the above variables are used and Ionic's
+// default are overridden.
+
+@import "ionic.theme.default";
+
+
+// Ionicons
+// --------------------------------------------------
+// The premium icon font for Ionic. For more info, please see:
+// http://ionicframework.com/docs/v2/ionicons/
+
+@import "ionic.ionicons";
+
+
+// Fonts
+// --------------------------------------------------
+
+@import "roboto";
+@import "noto-sans";

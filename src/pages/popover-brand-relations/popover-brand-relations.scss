@@ -1,0 +1,28 @@
+page-popover-brand-relations {
+  .buttonAdd{
+    position: absolute;
+    right: 33px;
+    top: 11px;
+    font-size: 16px;
+    //span{
+    //  width: 55px;
+    //}
+    //position:absolute;right:0px;top:14px;height:55px;
+    //ion-icon{
+    //  color:#456EB0;
+    //  font-size:45px;
+    //}
+  }
+  .item-md .button-md{
+    font-size: 18px!important;
+    margin-top: 2px!important;
+    height: 50px!important;
+  }
+  .itemSelected{
+    background-color: #dcdcdc;
+    border-radius: 2px;
+  }
+  .scroll-content{
+    overflow-y: auto;
+  }
+}

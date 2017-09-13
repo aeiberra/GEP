@@ -1,0 +1,44 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ 'articlesInPriceList' | translate }}</ion-title>
+    <ion-buttons end>
+      <button ion-button clear icon-only (click)="editArticle()">
+        <ion-icon name="md-create"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+<ion-content padding #containerPriceListList>
+
+  <ion-list>
+    <ion-searchbar (ionInput)="getItems($event)" item-start placeholder="{{ 'search_searchBar'|translate }}" animated="true" autocomplete="on" autocorrect="on" spellcheck="true"></ion-searchbar>
+
+    <ion-list>
+      <ion-item-sliding *ngFor="let item of articlesList" >
+        <ion-item (click)="viewArticle($event,item)" (press)="editArticle(item)">
+          <ion-avatar item-start>
+            <img [defaultImage]="'../../assets/icon/product.png'" [lazyLoad]="item?.image?.path" [scrollObservable]="containerPriceListList.ionScroll">
+          </ion-avatar>
+          <ion-row>
+            <ion-col col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6>
+              <h2 style="display: flex">{{item?.name}}
+                <h3 style="margin-left: 25px;line-height: 2;">{{ ('code'|translate) + ': ' + item?.code }}</h3></h2>
+            </ion-col>
+            <ion-col col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 style="text-align: right">
+              <h3>{{ item?.cant | currency:'USD':true:'1.2-2' }}</h3>
+            </ion-col>
+          </ion-row>
+          <p>{{ item?.description }}</p>
+        </ion-item>
+
+        <ion-item-options side="right">
+          <button ion-button (click)="editArticle()">{{ 'edit' | translate }}</button>
+          <button ion-button color="danger" (click)="deleteArticle(item)">{{ 'deleteObject' | translate }}</button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
+  </ion-list>
+</ion-content>

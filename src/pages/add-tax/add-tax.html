@@ -1,0 +1,68 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ title }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list class="listTax">
+            <ion-item>
+              <ion-label >{{'code'|translate}}</ion-label>
+              <ion-input name="code" ngModel="{{ codeTax }}" type="text" #first="ngModel"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-item>
+              <ion-label >{{'name'|translate}}</ion-label>
+              <ion-input name="name" ngModel="{{ nameTax }}" type="text" required ></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-6 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-item>
+              <ion-label>{{ 'type' | translate }}</ion-label>
+              <ion-select [(ngModel)]="type" [ngModelOptions]="{standalone: true}">
+                <ion-option value="percentage">{{ 'percentage' | translate }}</ion-option>
+                <ion-option value="quantity">{{ 'quantity' | translate }}</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-6 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-item>
+              <ion-label ><ion-icon *ngIf="type == 'quantity'" name="logo-usd"></ion-icon><ion-icon *ngIf="type == 'percentage'" style="font-weight: bold;" >%</ion-icon></ion-label>
+              <ion-input [disabled]="!type" name="value" ngModel="{{ value }}" type="number" required ></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-12 col-lg-12>
+          <ion-list>
+            <ion-item>
+              <ion-label><ion-icon name="document"></ion-icon></ion-label>
+              <ion-input   name="description"  ngModel="{{ descriptionTax }}"  type="text" placeholder="{{'description'|translate}}"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <button type="submit" ion-button>{{'save'|translate}}</button>
+    <button ion-button color="danger" (click)="f.resetForm()" onclick="event.stopPropagation();event.preventDefault()">{{'erase'|translate}}</button>
+
+  </form>
+
+
+
+</ion-content>

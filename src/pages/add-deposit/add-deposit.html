@@ -1,0 +1,84 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ title }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-item style="text-align: center;">
+              <span class="result rounded" [hidden]="data1.image || !photoDeposit">
+                <img [src]="photoDeposit" [width]="cropperSettings1.croppedWidth" [height]="cropperSettings1.croppedHeight" (click)="openImage()">
+            </span>
+              <span class="result rounded" [hidden]="!data1.image">
+                <img [src]="data1.image" [width]="cropperSettings1.croppedWidth" [height]="cropperSettings1.croppedHeight" (click)="openImage()">
+            </span>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list class="listDeposit">
+            <ion-item>
+              <ion-label >{{'code'|translate}}</ion-label>
+              <ion-input name="code" ngModel="{{ codeDeposit }}" type="text" #first="ngModel"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label >{{'name'|translate}}</ion-label>
+              <ion-input name="name" ngModel="{{ nameDeposit }}" type="text" required ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label><ion-icon name="document"></ion-icon></ion-label>
+              <ion-input   name="description"  ngModel="{{ descriptionDeposit }}"  type="text" placeholder="{{'description'|translate}}"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+
+    <ion-list>
+      <ion-searchbar (ionInput)="getItems($event)" item-start placeholder="{{ 'search_searchBar'|translate }}" animated="true" autocomplete="on" autocorrect="on" spellcheck="true"></ion-searchbar>
+
+      <ion-list class="list-art-deposit">
+        <div *ngFor="let item of articlesList" >
+          <ion-item (press)="viewArticle($event,item)">
+            <ion-avatar item-start>
+              <img src="{{ item?.image?.path || '../../assets/icon/product.png' }}">
+            </ion-avatar>
+            <ion-row>
+              <ion-col col-6>
+                <h2 style="display: flex">{{item?.name}}</h2>
+              </ion-col>
+              <ion-col col-6 style="text-align: right">
+                <h3>{{ ('code'|translate) + ': ' + item?.code }}</h3>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <h3>
+                  <input class="input-measure" placeholder="{{ 'insert_quantity'|translate }}" type="number" min="1" required value="1" [(ngModel)]="item.cant" [ngModelOptions]="{standalone: true}">
+                </h3>
+              </ion-col>
+            </ion-row>
+          </ion-item>
+        </div>
+      </ion-list>
+
+    </ion-list>
+
+
+    <button type="submit" ion-button>{{'save'|translate}}</button>
+    <button ion-button color="danger" (click)="f.resetForm()" onclick="event.stopPropagation();event.preventDefault()">{{'erase'|translate}}</button>
+
+  </form>
+
+
+
+</ion-content>

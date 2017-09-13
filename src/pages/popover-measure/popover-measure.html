@@ -1,0 +1,39 @@
+<ion-card style="box-shadow:none;">
+
+  <ion-item>
+    <ion-avatar item-start>
+      <img [defaultImage]="'../../assets/icon/spinner.gif'" [lazyLoad]="navParams.data?.image?.path || '../../assets/icon/measure.png'">
+
+    </ion-avatar>
+    <h2 style="display: flex">{{navParams.data?.name}}
+      <h4 style="margin-left: 25px;">{{ ('code'|translate) + ': ' + navParams.data?.code }}</h4></h2>
+  </ion-item>
+
+  <ion-card-content>
+    <ion-list>
+
+      <ion-item>
+        <ion-icon name="document" item-start></ion-icon>
+        <div>{{'description'|translate}}</div>
+        <ion-note style="white-space: normal;">{{ navParams.data?.description }}</ion-note>
+      </ion-item>
+
+    </ion-list>
+  </ion-card-content>
+
+  <ion-row>
+    <ion-col>
+      <button ion-button icon-left clear small (click)="editMeasure(navParams.data)">
+        <ion-icon name="md-create"></ion-icon>
+        <div>{{'edit'|translate}}</div>
+      </button>
+    </ion-col>
+    <ion-col>
+      <button ion-button color="danger" icon-left clear small (click)="deleteMeasure(navParams.data)">
+        <ion-icon name="trash"></ion-icon>
+        <div>{{'deleteObject'|translate}}</div>
+      </button>
+    </ion-col>
+  </ion-row>
+
+</ion-card>

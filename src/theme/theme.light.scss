@@ -1,0 +1,20 @@
+.light-theme {
+  .bar-button-clear{
+    color:map-get($colors, primary)!important;
+  }
+  .first-panel-icon{
+    color:map-get($colors, primary)!important;
+  }
+  .second-panel-icon-0{
+    color: map-get($colors, icon-0)!important;
+  }
+  .second-panel-icon-1{
+    color: map-get($colors, icon-1)!important;
+  }
+  .second-panel-icon-2{
+    color: map-get($colors, icon-2)!important;
+  }
+  .second-panel-icon-3{
+    color: map-get($colors, icon-3)!important;
+  }
+}

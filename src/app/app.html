@@ -1,0 +1,167 @@
+<ion-split-pane>
+  <!--  our side menu  -->
+  <ion-menu [content]="secondContent">
+    <ion-header>
+      <ion-navbar color="primary">
+        <ion-title>{{ tabActive.nameTab | translate}}</ion-title>
+      </ion-navbar>
+    </ion-header>
+
+    <ion-content class="split-pane-background" *ngIf="tabActive.nameTab == 'mercaderia'">
+      <ion-grid fixed id="test">
+        <ion-list>
+          <button ion-item (click)="goToMercaderiaPage()" icon-left>
+            <ion-icon name="easel" [ngStyle]="{'color': red}" item-start></ion-icon>
+            {{ 'dashboard' | translate }}
+          </button>
+
+          <button ion-item (click)="animateList('articulos')" icon-left>
+            <ion-icon name="pricetags" class="first-panel-icon" item-start></ion-icon>
+            {{ 'product' | translate }}
+          </button>
+          <span *ngIf="stateArticulos">
+            <button ion-item *ngFor="let page of pagesArticulos; let j = index" (click)="goToOtherPage(page)" icon-left [@movePanel]="stateArticulos" [ngStyle]="{'padding-left': '40px'}">
+              <ion-icon [name]="page.icon" [ngClass]="{'second-panel-icon-0': j=='0','second-panel-icon-1': j=='1','second-panel-icon-2': j=='2','second-panel-icon-3': j=='3'}" item-start></ion-icon>
+              {{ page.title }}
+            </button>
+          </span>
+
+          <button ion-item (click)="animateList('precios')" icon-left>
+            <ion-icon name="cash" class="first-panel-icon" item-start></ion-icon>
+            {{ 'prices' | translate }}
+          </button>
+          <span *ngIf="statePrecios">
+            <button ion-item *ngFor="let page of pagesPrecios; let j = index" (click)="goToOtherPage(page)" icon-left [@movePanel]="stateArticulos" [ngStyle]="{'padding-left': '40px'}">
+              <ion-icon [name]="page.icon" [ngClass]="{'second-panel-icon-0': j=='0','second-panel-icon-1': j=='1','second-panel-icon-2': j=='2','second-panel-icon-3': j=='3'}" item-start></ion-icon>
+              {{ page.title }}
+            </button>
+          </span>
+
+          <button ion-item (click)="animateList('depositos')" icon-left>
+            <ion-icon name="archive" class="first-panel-icon" item-start></ion-icon>
+            {{ 'deposits' | translate }}
+          </button>
+          <span *ngIf="stateDepositos">
+            <button ion-item *ngFor="let page of pagesDepositos; let j = index" (click)="goToOtherPage(page)" icon-left [@movePanel]="stateArticulos" [ngStyle]="{'padding-left': '40px'}">
+              <ion-icon [name]="page.icon" [ngClass]="{'second-panel-icon-0': j=='0','second-panel-icon-1': j=='1','second-panel-icon-2': j=='2','second-panel-icon-3': j=='3'}" item-start></ion-icon>
+              {{ page.title }}
+            </button>
+          </span>
+
+        </ion-list>
+      </ion-grid>
+    </ion-content>
+    <ion-content class="split-pane-background" *ngIf="tabActive.nameTab == 'ventas'">
+      <ion-grid fixed>
+        <ion-list>
+
+          <button ion-item (click)="goToVentasPage()" icon-left>
+            <ion-icon name="easel" [ngStyle]="{'color': red}" item-start></ion-icon>
+            {{ 'dashboard' | translate }}
+          </button>
+
+          <button ion-item (click)="animateList('clientes')" icon-left>
+            <ion-icon name="contact" class="first-panel-icon" item-start></ion-icon>
+            {{ 'clients' | translate }}
+          </button>
+          <span *ngIf="stateClientes">
+            <button ion-item *ngFor="let page of pagesClientes; let j = index" (click)="goToOtherPage(page)" icon-left [@movePanel]="stateArticulos" [ngStyle]="{'padding-left': '40px'}">
+              <ion-icon [name]="page.icon" [ngClass]="{'second-panel-icon-0': j=='0','second-panel-icon-1': j=='1','second-panel-icon-2': j=='2','second-panel-icon-3': j=='3'}" item-start></ion-icon>
+              {{ page.title }}
+            </button>
+          </span>
+
+          <button ion-item (click)="animateList('sucursales')" icon-left>
+            <ion-icon name="home" class="first-panel-icon" item-start></ion-icon>
+            {{ 'branches' | translate }}
+          </button>
+          <span *ngIf="stateSucursales">
+            <button ion-item *ngFor="let page of pagesSucursales; let j = index" (click)="goToOtherPage(page)" icon-left [@movePanel]="stateArticulos" [ngStyle]="{'padding-left': '40px'}">
+              <ion-icon [name]="page.icon" [ngClass]="{'second-panel-icon-0': j=='0','second-panel-icon-1': j=='1','second-panel-icon-2': j=='2','second-panel-icon-3': j=='3'}" item-start></ion-icon>
+              {{ page.title }}
+            </button>
+          </span>
+
+          <button ion-item (click)="animateList('vendedores')" icon-left>
+            <ion-icon name="people" class="first-panel-icon" item-start></ion-icon>
+            {{ 'sellers' | translate }}
+          </button>
+          <span *ngIf="stateVendedores">
+            <button ion-item *ngFor="let page of pagesVendedores; let j = index" (click)="goToOtherPage(page)" icon-left [@movePanel]="stateArticulos" [ngStyle]="{'padding-left': '40px'}">
+              <ion-icon [name]="page.icon" [ngClass]="{'second-panel-icon-0': j=='0','second-panel-icon-1': j=='1','second-panel-icon-2': j=='2','second-panel-icon-3': j=='3'}" item-start></ion-icon>
+              {{ page.title }}
+            </button>
+          </span>
+
+          <button ion-item (click)="animateList('ventas')" icon-left>
+            <ion-icon name="basket" class="first-panel-icon" item-start></ion-icon>
+            {{ 'sales' | translate }}
+          </button>
+          <span *ngIf="stateVentas">
+            <button ion-item *ngFor="let page of pagesVentas; let j = index" (click)="goToOtherPage(page)" icon-left [@movePanel]="stateArticulos" [ngStyle]="{'padding-left': '40px'}">
+              <ion-icon [name]="page.icon" [ngClass]="{'second-panel-icon-0': j=='0','second-panel-icon-1': j=='1','second-panel-icon-2': j=='2','second-panel-icon-3': j=='3'}" item-start></ion-icon>
+              {{ page.title }}
+            </button>
+          </span>
+
+        </ion-list>
+      </ion-grid>
+    </ion-content>
+
+    <ion-content class="split-pane-background" *ngIf="tabActive.nameTab == 'proveedores'">
+      <ion-grid fixed>
+        <ion-list>
+
+          <button ion-item (click)="goToProveedoresPage()" icon-left>
+            <ion-icon name="easel" [ngStyle]="{'color': red}" item-start></ion-icon>
+            {{ 'dashboard' | translate }}
+          </button>
+
+          <button ion-item (click)="animateList('proveedores')" icon-left>
+            <ion-icon name="contact" class="first-panel-icon" item-start></ion-icon>
+            {{ 'suppliers' | translate }}
+          </button>
+          <span *ngIf="stateProveedores">
+            <button ion-item *ngFor="let page of pagesProveedores; let j = index" (click)="goToOtherPage(page)" icon-left [@movePanel]="stateArticulos" [ngStyle]="{'padding-left': '40px'}">
+              <ion-icon [name]="page.icon" [ngClass]="{'second-panel-icon-0': j=='0','second-panel-icon-1': j=='1','second-panel-icon-2': j=='2','second-panel-icon-3': j=='3'}" item-start></ion-icon>
+              {{ page.title }}
+            </button>
+          </span>
+
+        </ion-list>
+      </ion-grid>
+    </ion-content>
+
+    <ion-content class="split-pane-background" *ngIf="tabActive.nameTab == 'config'">
+      <ion-grid fixed>
+        <ion-list>
+
+          <button ion-item (click)="goToConfigPage()" icon-left>
+            <ion-icon name="easel" [ngStyle]="{'color': red}" item-start></ion-icon>
+            {{ 'configuration' | translate }}
+          </button>
+
+          <button ion-item (click)="animateList('usuarios')" icon-left>
+            <ion-icon name="person" class="first-panel-icon" item-start></ion-icon>
+            {{ 'users' | translate }}
+          </button>
+          <span *ngIf="stateUsuarios">
+            <button ion-item *ngFor="let page of pagesUsuarios; let j = index" (click)="goToOtherPage(page)" icon-left [@movePanel]="stateArticulos" [ngStyle]="{'padding-left': '40px'}">
+              <ion-icon [name]="page.icon" [ngClass]="{'second-panel-icon-0': j=='0','second-panel-icon-1': j=='1','second-panel-icon-2': j=='2','second-panel-icon-3': j=='3'}" item-start></ion-icon>
+              {{ page.title }}
+            </button>
+          </span>
+
+          <button ion-item (click)="goToThemePage()" icon-left>
+            <ion-icon name="brush" class="first-panel-icon" item-start></ion-icon>
+            {{ 'theme' | translate }}
+          </button>
+
+          <button ion-button full color="danger" (click)="logoutUser()" [ngStyle]="{'position': 'absolute', 'bottom': '5px', 'margin': '0 0 0 -5px'}">{{ 'signOff' | translate}}</button>
+        </ion-list>
+      </ion-grid>
+    </ion-content>
+  </ion-menu>
+  <!-- the main content -->
+  <ion-nav #secondContent [root]="rootPage" main swipeBackEnabled="false"></ion-nav>
+</ion-split-pane>

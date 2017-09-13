@@ -1,0 +1,43 @@
+<ion-header>
+
+  <ion-navbar hideBackButton>
+    <ion-title>{{ 'clients' | translate }}</ion-title>
+    <ion-buttons end>
+      <button ion-button clear icon-only (click)="addClient()">
+        <ion-icon name="add" ></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+<ion-content padding #containerClient>
+
+  <ion-list>
+    <ion-searchbar (ionInput)="getItems($event)" item-start placeholder="{{ 'search_searchBar'|translate }}" animated="true" autocomplete="on" autocorrect="on" spellcheck="true"></ion-searchbar>
+
+    <ion-list>
+      <ion-item-sliding *ngFor="let item of clientsList" >
+        <ion-item (click)="viewClient($event,item)" (press)="editClient(item)">
+          <ion-avatar item-start>
+            <img [defaultImage]="'../../assets/icon/spinner.gif'" [lazyLoad]="item?.image?.path || '../../assets/icon/profile.jpg'" [scrollObservable]="containerClient.ionScroll">
+          </ion-avatar>
+          <ion-row>
+            <ion-col col-6>
+              <h2>{{item?.name + ' ' + item?.surname}}</h2>
+            </ion-col>
+            <ion-col col-6 style="text-align: right">
+              <h3>{{ item?.phone }}</h3>
+            </ion-col>
+          </ion-row>
+          <p>{{ item.address[0]?.address + ', ' + item.address[0]?.city?.name + ', ' + item.address[0]?.province?.name + ', ' + item.address[0]?.country?.name }}</p>
+        </ion-item>
+
+        <ion-item-options side="right">
+          <button ion-button (click)="editClient(item)">{{ 'edit' | translate }}</button>
+          <button ion-button color="danger" (click)="deleteClient(item)">{{ 'deleteObject' | translate }}</button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
+  </ion-list>
+</ion-content>

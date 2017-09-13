@@ -1,0 +1,95 @@
+page-add-deposit {
+  #grid2-addDeposit{
+    .list-ios > .item-block:last-child{
+      border:0
+    }
+    .list-ios > .item-block:first-child{
+      border: 0;
+
+    }
+    .list-md > .item-block:last-child{
+      border: 0;
+    }
+    .list-md > .item-block:first-child{
+      border: 0;
+    }
+  }
+
+  .file-upload{
+    position: relative;
+
+    #custom-input{
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      opacity: 0;
+      z-index: 100;
+      cursor: pointer;
+    }
+  }
+  #cropper-deposit{
+    min-width: 300px;
+    min-height: 300px;
+    input{
+      position: absolute;
+      height: 0;
+      width: 0;
+      opacity: 0;
+      z-index: -100;
+    }
+  }
+  #cropper-deposit-crop{
+    width: 300px!important;
+    height: 300px!important;
+    min-width: 300px!important;
+    min-height: 300px!important;
+    max-width: 300px!important;
+    max-height: 300px!important;
+    padding: 0;
+    margin: 0;
+    ion-item{
+      padding: 0;
+      margin: 0;
+    }
+    ion-label{
+      padding: 0;
+      margin: 0;
+    }
+    div{
+      padding: 0;
+      margin: 0;
+    }
+
+    img{
+      border-radius: 50%;
+      width: 300px!important;
+      height: 300px!important;
+      min-width: 300px!important;
+      min-height: 300px!important;
+      max-width: 300px!important;
+      max-height: 300px!important;
+    }
+  }
+  .rounded img{
+    border-radius: 50%;
+    width: 150px!important;
+    height: 150px!important;
+    min-width: 150px!important;
+    min-height: 150px!important;
+    max-width: 150px!important;
+    max-height: 150px!important;
+  }
+  .listDeposit .item-block{
+    padding-left: 0!important;
+  }
+  .input-measure{
+    border: none;
+    border-bottom: 1px solid #488aff;
+  }
+  .list-art-deposit{
+    max-height: 300px;
+    overflow-y: auto;
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "GEP",
+  "app_id": "08733b12",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}

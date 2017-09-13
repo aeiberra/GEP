@@ -1,0 +1,177 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ title }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-item style="text-align: center;">
+              <span class="result rounded" [hidden]="data1.image || !photoSalesRS">
+                <img [src]="photoSalesRS" [width]="cropperSettings1.croppedWidth" [height]="cropperSettings1.croppedHeight" (click)="openImage()">
+            </span>
+              <span class="result rounded" [hidden]="!data1.image">
+                <img [src]="data1.image" [width]="cropperSettings1.croppedWidth" [height]="cropperSettings1.croppedHeight" (click)="openImage()">
+            </span>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list class="listSalesRS">
+            <ion-item>
+              <ion-label >{{'code'|translate}}</ion-label>
+              <ion-input name="code" ngModel="{{ codeSalesRS }}" type="text" #first="ngModel"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label >{{'name'|translate}}</ion-label>
+              <ion-input name="name" ngModel="{{ nameSalesRS }}" type="text" required ></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+
+        <ion-col col-12 col-sm-12 col-md-12 col-lg-12>
+          <ion-list>
+            <ion-item>
+              <ion-label><ion-icon name="document"></ion-icon></ion-label>
+              <ion-input   name="description"  ngModel="{{ descriptionSalesRS }}"  type="text" placeholder="{{'description'|translate}}"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-12 col-lg-12>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-12 col-sm-12 col-md-12 col-lg-4>
+                <ion-item>
+                  <ion-label>{{ 'time' | translate}}</ion-label>
+                </ion-item>
+              </ion-col>
+              <ion-col col-12 col-sm-6 col-md-6 col-lg-4>
+                <ion-list>
+                  <ion-item>
+                    <ion-label>{{ 'start' | translate }}<ion-icon style="float: right;" name="time"></ion-icon></ion-label>
+                    <ion-datetime name="date1" displayFormat="HH:mm" [(ngModel)]="Date1" max="{{ Date2 }}"></ion-datetime>
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+              <ion-col col-12 col-sm-6 col-md-6 col-lg-4>
+                <ion-list>
+                  <ion-item>
+                    <ion-label>{{ 'end' | translate }}<ion-icon style="float: right;" name="time"></ion-icon></ion-label>
+                    <ion-datetime name="date2" displayFormat="HH:mm" [(ngModel)]="Date2" min="{{ Date1 }}"></ion-datetime>
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+              <ion-col col-12 col-sm-6 col-md-6 col-lg-4>
+                <ion-list>
+                  <ion-item style="border-bottom: 1px solid #dedede">
+                    <ion-label>{{ 'days' | translate }}</ion-label>
+                    <ion-select name="days" [(ngModel)]="day" multiple="true">
+                      <ion-option *ngFor="let d of days" value="{{ d.id }}" >{{ d.name }}</ion-option>
+                    </ion-select>
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+              <ion-col col-12 col-sm-6 col-md-6 col-lg-4>
+                <ion-list>
+                  <ion-item style="border-bottom: 1px solid #dedede">
+                    <ion-label>{{'seller'|translate}}</ion-label>
+                    <ion-select  name="sellers"  [(ngModel)]="sellerSelected" (ngModelChange)="getSellers(sellerSelected)" >
+                      <ion-option *ngFor="let c of (sellers | async)" value="{{ c.key }}" >{{ c.name }}</ion-option>
+                    </ion-select>
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+              <ion-col col-12 col-sm-6 col-md-6 col-lg-4>
+                <ion-list>
+                  <ion-item style="border-bottom: 1px solid #dedede">
+                    <ion-label>{{ "Cantidad de Clientes: " + clientsArray.length }}</ion-label>
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+              <ion-col col-12 id="createMapSeller">
+                <div>
+                  <div id="mapSeller" class="mapboxgl-map"></div>
+                </div>
+                <button ion-button (click)="setRoute()" onclick="event.stopPropagation();event.preventDefault()">{{ "setRoute" | translate }}</button>
+              </ion-col>
+              <ion-col col-12 *ngIf="loadedClientsAdded.length > 0">
+                <ion-list>
+                  <ion-list-header>{{ 'clients' | translate }}</ion-list-header>
+                  <!--<ion-searchbar (ionInput)="getItems($event)" item-start placeholder="{{ 'search_searchBar'|translate }}" animated="true" autocomplete="on" autocorrect="on" spellcheck="true"></ion-searchbar>-->
+
+                  <ion-list class="list-art-deposit">
+                    <ion-item-group reorder="true" (ionItemReorder)="$event.applyTo(clientAdded);setRoute()" onclick="event.stopPropagation();event.preventDefault()">
+                    <div *ngFor="let item of clientAdded" >
+                      <ion-row *ngIf="item?.distance" class="clientTravel">
+                        <ion-col col-1 col-sm-1 col-md-1 col-lg-1>
+                          <div><ion-icon name="md-arrow-dropdown"></ion-icon></div>
+                          <div><ion-icon name="md-arrow-dropdown"></ion-icon></div>
+                        </ion-col>
+                        <ion-col col-11 col-sm-5 col-md-5 col-lg-5>
+                          <div style="display: flex;padding-top: 10px;"><ion-icon name="time"></ion-icon>{{ ("duration" | translate) + ": " + item?.duration}}</div>
+                        </ion-col>
+                        <ion-col col-11 col-sm-5 col-md-5 col-lg-5>
+                          <div style="display: flex;padding-top: 10px;"><ion-icon name="car"></ion-icon>{{ ("distance" | translate) + ": " + item?.distance}}</div>
+                        </ion-col>
+                      </ion-row>
+                      <ion-item (press)="viewClient($event,item)" onclick="event.stopPropagation();event.preventDefault()" class="listOfClients">
+                        <ion-avatar item-start>
+                          <img src="{{ item?.image?.path || '../../assets/icon/product.png' }}">
+                        </ion-avatar>
+                        <ion-row>
+                          <ion-col col-12 col-sm-6 col-md-6 col-lg-6>
+                            <h2 style="display: flex">{{ item?.name + " " + item?.surname }}</h2>
+                          </ion-col>
+                          <ion-col col-11 col-sm-5 col-md-5 col-lg-5 style="text-align: right">
+                            <h3>{{ ('code'|translate) + ': ' + item?.code }}</h3>
+                          </ion-col>
+                          <ion-col col-1 style="padding: 2px 1px;">
+                            <ion-icon name="close-circle" color="danger" (click)="addClient(item, false)"></ion-icon>
+                          </ion-col>
+                        </ion-row>
+                      </ion-item>
+                      <ion-item class="waitTime">
+                        <ion-label>{{ 'waitTime' | translate }}<ion-icon style="float: right;" name="time"></ion-icon></ion-label>
+                        <ion-datetime name="{{item.wait}}" displayFormat="HH:mm" [(ngModel)]="item.wait" (ngModelChange)="calTime()" [ngModelOptions]="{standalone: true}"></ion-datetime>
+                      </ion-item>
+                    </div>
+                    </ion-item-group>
+                  </ion-list>
+
+                </ion-list>
+              </ion-col>
+              <ion-col col-12 col-sm-6 col-md-6 col-lg-4>
+                <ion-list>
+                  <ion-item style="border-bottom: 1px solid #dedede">
+                    <ion-label>{{ ("duration" | translate) + ": " + (finalDuration || "00:00:00")}}</ion-label>
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+              <ion-col col-12 col-sm-6 col-md-6 col-lg-4>
+                <ion-list>
+                  <ion-item style="border-bottom: 1px solid #dedede">
+                    <ion-label>{{ ("distance" | translate) + ": " + (distance || "0m") }}</ion-label>
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <button type="submit" ion-button>{{'save'|translate}}</button>
+    <button ion-button color="danger" (click)="f.resetForm()" onclick="event.stopPropagation();event.preventDefault()">{{'erase'|translate}}</button>
+
+  </form>
+
+
+</ion-content>

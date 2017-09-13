@@ -1,0 +1,204 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ title }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-item style="text-align: center;">
+              <span class="result rounded" [hidden]="data1.image || !photoArticle">
+                <img [src]="photoArticle" [width]="cropperSettings1.croppedWidth" [height]="cropperSettings1.croppedHeight" (click)="openImage()" [alt]="'assets/icon/product.png'">
+            </span>
+              <span class="result rounded" [hidden]="!data1.image">
+                <img [src]="data1.image" [width]="cropperSettings1.croppedWidth" [height]="cropperSettings1.croppedHeight" (click)="openImage()">
+            </span>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list class="listArticle">
+            <ion-item>
+              <ion-label >{{'code'|translate}}</ion-label>
+              <ion-input name="code" ngModel="{{ codeArticle }}" type="text" #first="ngModel"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label >{{'name'|translate}}</ion-label>
+              <ion-input name="name" ngModel="{{ nameArticle }}" type="text" required ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label >{{'barCode'|translate}}</ion-label>
+              <ion-input name="barCode"  ngModel="{{ barCodeArticle }}" required type="text"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+
+        <ion-col col-12>
+          <ion-list>
+            <ion-item>
+              <ion-label><ion-icon name="document"></ion-icon></ion-label>
+              <ion-input   name="description"  ngModel="{{ descriptionArticle }}"  type="text" placeholder="{{'description'|translate}}"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-item>
+              <ion-label ><ion-icon name="logo-usd"></ion-icon></ion-label>
+              <ion-input   name="netCost"  ngModel="{{ netCostArticle }}"  type="number" min="0" placeholder="{{'netCost'|translate}}"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-item>
+              <ion-label><ion-icon name="cube"></ion-icon></ion-label>
+              <ion-input   name="weight"  ngModel="{{ weightArticle }}"  type="text" placeholder="{{'weight'|translate}}"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-6 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-item>
+              <ion-label>{{ 'profitability' | translate }}</ion-label>
+              <ion-select [(ngModel)]="type" [ngModelOptions]="{standalone: true}">
+                <ion-option value="percentage">{{ 'percentage' | translate }}</ion-option>
+                <ion-option value="quantity">{{ 'quantity' | translate }}</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-6 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-item>
+              <ion-label ><ion-icon *ngIf="type == 'quantity'" name="logo-usd"></ion-icon><ion-icon *ngIf="type == 'percentage'" style="font-weight: bold;" >%</ion-icon></ion-label>
+              <ion-input [disabled]="!type" name="value" ngModel="{{ value }}" type="number" required ></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-row id="relation-brandAdd">
+              <ion-col col-11>
+                <ion-item style="border-bottom: 1px solid #dedede">
+                  <ion-label>{{ 'brand'|translate }}</ion-label>
+                  <ion-input (click)="viewRelationsBrand(relationBrand)" disabled ([ngModel])="relationBrand" placeholder="{{ relationBrand?.name }}"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col col-1>
+                <ion-icon name="close-circle" color="danger" (click)="relationBrand = null" style="vertical-align: -15px;" *ngIf="relationBrand"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-row id="relation-measureAdd">
+              <ion-col col-11>
+                <ion-item style="border-bottom: 1px solid #dedede">
+                  <ion-label>{{ 'measure'|translate }}</ion-label>
+                  <ion-input (click)="viewRelationsMeasure(relationMeasure)" disabled ([ngModel])="relationMeasure" placeholder="{{ relationMeasure?.name }}"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col col-1>
+                <ion-icon name="close-circle" color="danger" (click)="relationMeasure = null;addedSecondMeasure = []" style="vertical-align: -15px;" *ngIf="relationMeasure"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-card style="margin: 0">
+            <ion-card-header>
+              {{'secondMeasure'|translate}}
+              <button ion-button clear icon-only end onclick="event.stopPropagation();event.preventDefault();" *ngIf="relationMeasure">
+                <ion-icon name="add"></ion-icon>
+                <ion-select interface="popover" ngModel name="selectSecondMeasure">
+                  <ion-option *ngFor="let c of currentSecondMeasure; let j = index" value="{{ c.key }}" (ionSelect)="pushSecondMeasure(c,j)">{{ c.name }}</ion-option>
+                  <ion-option (ionSelect)="newSecondMeasure();addSecondMeasure()">{{'titleAdd_add_measure' | translate}}</ion-option>
+                </ion-select>
+              </button>
+            </ion-card-header>
+            <ion-card-content style="padding: 0;">
+              <ion-list>
+                <ion-item *ngFor="let item of addedSecondMeasure; let i = index">
+                  <ion-avatar item-start>
+                    <img src="{{ item?.image?.path || '../../assets/icon/measure.png' }}">
+                  </ion-avatar>
+                  <ion-row>
+                    <ion-col col-6>
+                      <h2 style="display: flex">{{item?.name}}</h2>
+                    </ion-col>
+                    <ion-col col-5 style="text-align: right">
+                      <h3>{{ ('code'|translate) + ': ' + item?.code }}</h3>
+                    </ion-col>
+                    <ion-col col-1 style="padding: 2px 1px;">
+                      <ion-icon name="close-circle" color="danger" (click)="deleteSecondMeasure(item,i)"></ion-icon>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col>
+                      <h3>
+                        <input class="input-measure" placeholder="Insert Cant" type="number" min="1" required value="1" [(ngModel)]="item.cant" [ngModelOptions]="{standalone: true}">
+                      </h3>
+                    </ion-col>
+                  </ion-row>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-card style="margin: 0">
+            <ion-card-header>
+              {{'family'|translate}}
+                <button ion-button clear icon-only end (click)="addFamily()" onclick="event.stopPropagation();event.preventDefault()">
+                  <ion-icon name="add"></ion-icon>
+                  <ion-select interface="popover" ngModel name="selectFamily">
+                    <ion-option *ngFor="let c of currentFamily" value="{{ c.key }}" (ionSelect)="pushFamily(c)">{{ c.name }}</ion-option>
+                    <ion-option (ionSelect)="newFamily()">{{'titleAdd_add_family' | translate}}</ion-option>
+                  </ion-select>
+                </button>
+            </ion-card-header>
+            <ion-card-content style="padding: 0;">
+              <ion-list>
+                <ion-item *ngFor="let item of addedFamily; let i = index">
+                  <ion-avatar item-start>
+                    <img src="{{ item?.image?.path || '../../assets/icon/family.png' }}">
+                  </ion-avatar>
+                  <ion-row>
+                    <ion-col col-6>
+                      <h2 style="display: flex">{{item?.name}}</h2>
+                    </ion-col>
+                    <ion-col col-5 style="text-align: right">
+                      <h3>{{ ('code'|translate) + ': ' + item?.code }}</h3>
+                    </ion-col>
+                    <ion-col col-1 style="padding: 2px 1px;">
+                      <ion-icon name="close-circle" color="danger" (click)="deleteFamily(item,i)"></ion-icon>
+                    </ion-col>
+                  </ion-row>
+                  <p>{{ item?.description }}</p>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <button type="submit" ion-button>{{'save'|translate}}</button>
+    <button ion-button color="danger" (click)="f.resetForm()" onclick="event.stopPropagation();event.preventDefault()">{{'erase'|translate}}</button>
+
+  </form>
+
+
+
+</ion-content>

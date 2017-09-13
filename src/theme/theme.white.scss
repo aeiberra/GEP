@@ -1,0 +1,49 @@
+.white-theme {
+  .toolbar-title{
+    color: map-get($colors, dark)!important;
+  }
+  .bar-button-clear{
+    color: map-get($colors, dark)!important;
+  }
+  .toolbar-background{
+    background:map-get($colors, white-1)!important;
+  }
+  .tabs-md .tab-button[aria-selected=true]{
+    color:map-get($colors, dark)!important;
+  }
+  .tabs-md .tab-button[aria-selected=true] .tab-button-icon {
+    color:map-get($colors, dark)!important;
+  }
+  .first-panel-icon{
+    color:map-get($colors, dark)!important;
+  }
+  .second-panel-icon-0{
+    color: map-get($colors, white-icon-0)!important;
+  }
+  .second-panel-icon-1{
+    color: map-get($colors, white-icon-1)!important;
+  }
+  .second-panel-icon-2{
+    color: map-get($colors, white-icon-2)!important;
+  }
+  .second-panel-icon-3{
+    color: map-get($colors, white-icon-3)!important;
+  }
+  .split-pane-background{
+    background-color: map-get($colors, white-2)!important;
+    ion-list{
+      button{
+        background-color: map-get($colors, white-2)!important;
+        color: map-get($colors, dark);
+      }
+      .button-md-danger {
+        color: map-get($colors, light);
+        background-color:  map-get($colors, danger)!important;
+      }
+      .button-ios-danger {
+        color: map-get($colors, light);
+        background-color: map-get($colors, danger)!important;
+      }
+    }
+  }
+}

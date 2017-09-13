@@ -1,0 +1,40 @@
+<ion-header>
+
+  <ion-navbar hideBackButton>
+    <ion-title>{{ 'billing' | translate }}</ion-title>
+    <ion-buttons end>
+      <button ion-button clear icon-only (click)="addBilling()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+<ion-content padding #containerBilling>
+
+  <ion-list>
+    <ion-searchbar (ionInput)="getItems($event)" item-start placeholder="{{ 'search_searchBar'|translate }}" animated="true" autocomplete="on" autocorrect="on" spellcheck="true"></ion-searchbar>
+
+    <ion-list>
+      <ion-item-sliding *ngFor="let item of billingsList" >
+        <ion-item (click)="viewBilling($event,item)" (press)="editBilling(item)">
+          <ion-row>
+            <ion-col col-6>
+              <h2 style="display: flex">{{item?.name}}</h2>
+            </ion-col>
+            <ion-col col-6 style="text-align: right">
+              <h3>{{ ('code'|translate) + ': ' + item?.code }}</h3>
+            </ion-col>
+          </ion-row>
+          <p>{{ item?.description }}</p>
+        </ion-item>
+
+        <ion-item-options side="right">
+          <button ion-button (click)="editBilling(item)">{{ 'edit' | translate }}</button>
+          <button ion-button color="danger" (click)="deleteBilling(item)">{{ 'deleteObject' | translate }}</button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
+  </ion-list>
+</ion-content>

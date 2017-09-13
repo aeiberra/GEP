@@ -1,0 +1,300 @@
+<!--
+  Generated template for PosPage Pos page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar hideBackButton>
+    <ion-title>POS</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid style="margin-top: -25px;">
+    <ion-row>
+      <ion-col col-12 col-sm-6 col-md-6 col-lg-4>
+        <ion-list>
+          <ion-item style="border-bottom: 1px solid #dedede">
+            <ion-label>Sucursales</ion-label>
+            <ion-select ngModel multiple="true">
+              <ion-option *ngFor="let c of sucursales" value="{{ c.id }}" >{{ c.name }}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+      <ion-col col-12 col-sm-6 col-md-6 col-lg-4>
+        <ion-list>
+          <ion-item style="border-bottom: 1px solid #dedede">
+            <ion-label>Articulo</ion-label>
+            <ion-select ngModel multiple="true">
+              <ion-option *ngFor="let c of articulos" value="{{ c.id }}" >{{ c.name }}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+      <ion-col col-6 col-sm-6 col-md-6 col-lg-2>
+        <ion-list>
+          <ion-item style="border-bottom: 1px solid #dedede">
+            <ion-datetime displayFormat="DD MMM, YYYY" [(ngModel)]="Date1" max="{{ Date2 }}"></ion-datetime>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+      <ion-col col-6 col-sm-6 col-md-6 col-lg-2>
+        <ion-list>
+          <ion-item style="border-bottom: 1px solid #dedede">
+            <ion-datetime displayFormat="DD MMM, YYYY" [(ngModel)]="Date2" min="{{ Date1 }}"></ion-datetime>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col >
+        <button ion-button style="background-color: #f09300" icon-end>
+          <h4 style="background-color: #f4b400;">
+            <p class="number_pos">2512</p>
+            <p>Tickets</p>
+          </h4>
+          <ion-icon name="document" end></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col >
+        <button ion-button style="background-color: #303f9f" icon-end>
+          <h4 style="background-color: #3f51b5;">
+            <p class="number_pos">16,279</p>
+            <p>Tickets Promedio</p>
+          </h4>
+          <ion-icon name="clipboard" end></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col >
+        <button ion-button style="background-color: #f20012" icon-end>
+          <h4 style="background-color: #f53d3d;">
+            <p class="number_pos">3272</p>
+            <p>Articulos</p>
+          </h4>
+          <ion-icon name="pricetag" end></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col >
+        <button ion-button style="background-color: #0c6e3e" icon-end>
+          <h4 style="background-color: #1a9b61;">
+            <p class="number_pos">40,893,564,13</p>
+            <p>Total de ventas</p>
+          </h4>
+          <ion-icon name="logo-usd" end></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12>
+        <ion-card>
+          <ion-card-header>
+            Artículos vendidos
+          </ion-card-header>
+          <ion-card-content>
+            <ion-grid>
+              <ion-row justify-content-center>
+                <ion-col col-12 col-sm-12 col-md-12 col-lg-8>
+                  <canvas #lineCanvas></canvas>
+                </ion-col>
+                <ion-col col-12 col-sm-8 col-md-4 col-lg-4>
+                  <canvas #doughnutCanvas></canvas>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-row class="table_pos">
+    <ion-col>
+      <p class="table_title_pos"><strong>Fecha</strong></p>
+      <p *ngFor="let f of fechas;let i = index" [ngClass]="{'table_element_pos' : (i%2==1)}">{{ f.name }}</p>
+    </ion-col>
+    <ion-col *ngFor="let v of ventas;let i = index">
+      <p class="table_title_pos"><strong>{{ v.articulo }}</strong></p>
+      <p *ngFor="let value of ventas[i].values;let j = index" [ngClass]="{'table_element_pos' : (j%2==1)}">{{ value }}</p>
+    </ion-col>
+  </ion-row>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12>
+        <ion-card>
+          <ion-card-header>
+            Ventas por Region
+            <ion-row>
+              <ion-col col-12 col-sm-6 col-md-6 col-lg-4>
+                <ion-list>
+                  <ion-item style="border-bottom: 1px solid #dedede">
+                    <ion-label>Regiones</ion-label>
+                    <ion-select ngModel multiple="true">
+                      <ion-option *ngFor="let c of regiones" value="{{ c.id }}" >{{ c.name }}</ion-option>
+                    </ion-select>
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+              <ion-col col-12 col-sm-6 col-md-6 col-lg-4>
+                <ion-list>
+                  <ion-item style="border-bottom: 1px solid #dedede">
+                    <ion-label>Articulo</ion-label>
+                    <ion-select ngModel multiple="true">
+                      <ion-option *ngFor="let c of articulos" value="{{ c.id }}" >{{ c.name }}</ion-option>
+                    </ion-select>
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+              <ion-col col-6 col-sm-6 col-md-6 col-lg-2>
+                <ion-list>
+                  <ion-item style="border-bottom: 1px solid #dedede">
+                    <ion-datetime displayFormat="DD MMM, YYYY" [(ngModel)]="Date1" max="{{ Date2 }}"></ion-datetime>
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+              <ion-col col-6 col-sm-6 col-md-6 col-lg-2>
+                <ion-list>
+                  <ion-item style="border-bottom: 1px solid #dedede">
+                    <ion-datetime displayFormat="DD MMM, YYYY" [(ngModel)]="Date2" min="{{ Date1 }}"></ion-datetime>
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+            </ion-row>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <canvas #lineCanvasRegion></canvas>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col col-12>
+        <ion-card>
+          <ion-card-header>
+            Comparativa por Region
+          </ion-card-header>
+          <ion-card-content>
+            <canvas #barCanvas></canvas>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col col-12>
+        <ion-card>
+          <ion-card-header>
+            Ventas en Sucursales
+            <ion-row>
+              <ion-col col-12 col-sm-6 col-md-6 col-lg-4>
+                <ion-list>
+                  <ion-item style="border-bottom: 1px solid #dedede">
+                    <ion-label>Sucursales</ion-label>
+                    <ion-select ngModel multiple="true">
+                      <ion-option *ngFor="let c of sucursales" value="{{ c.id }}" >{{ c.name }}</ion-option>
+                    </ion-select>
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+              <ion-col col-12 col-sm-6 col-md-6 col-lg-4>
+                <ion-list>
+                  <ion-item style="border-bottom: 1px solid #dedede">
+                    <ion-label>Articulo</ion-label>
+                    <ion-select ngModel multiple="true">
+                      <ion-option *ngFor="let c of articulos" value="{{ c.id }}" >{{ c.name }}</ion-option>
+                    </ion-select>
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+              <ion-col col-6 col-sm-6 col-md-6 col-lg-2>
+                <ion-list>
+                  <ion-item style="border-bottom: 1px solid #dedede">
+                    <ion-datetime displayFormat="DD MMM, YYYY" [(ngModel)]="Date1" max="{{ Date2 }}"></ion-datetime>
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+              <ion-col col-6 col-sm-6 col-md-6 col-lg-2>
+                <ion-list>
+                  <ion-item style="border-bottom: 1px solid #dedede">
+                    <ion-datetime displayFormat="DD MMM, YYYY" [(ngModel)]="Date2" min="{{ Date1 }}"></ion-datetime>
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+            </ion-row>
+          </ion-card-header>
+          <ion-card-content>
+            <canvas #lineCanvasSucursal></canvas>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12 col-sm-6 col-md-6 col-lg-3>
+        <ion-list>
+          <ion-item style="border-bottom: 1px solid #dedede">
+            <ion-label>Sucursales</ion-label>
+            <ion-select ngModel multiple="true">
+              <ion-option *ngFor="let c of sucursales" value="{{ c.id }}" >{{ c.name }}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+      <ion-col col-12 col-sm-6 col-md-6 col-lg-4>
+        <ion-list>
+          <ion-item style="border-bottom: 1px solid #dedede">
+            <ion-label>Articulo</ion-label>
+            <ion-select ngModel>
+              <ion-option *ngFor="let c of articulos" value="{{ c.id }}" >{{ c.name }}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+      <ion-col col-5 col-sm-5 col-md-5 col-lg-2>
+        <ion-list>
+          <ion-item style="border-bottom: 1px solid #dedede">
+            <ion-datetime displayFormat="DD MMM, YYYY" [(ngModel)]="Date1" max="{{ Date2 }}"></ion-datetime>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+      <ion-col col-5 col-sm-5 col-md-5 col-lg-2>
+        <ion-list>
+          <ion-item style="border-bottom: 1px solid #dedede">
+            <ion-datetime displayFormat="DD MMM, YYYY" [(ngModel)]="Date2" min="{{ Date1 }}"></ion-datetime>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+      <ion-col col-1 style="padding: 0;margin: 0;">
+        <button ion-button clear icon-only style="padding: 0;margin: 0;" (click)="testing()">
+          <ion-icon name="add" style="color: #488aff"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col col-12>
+        <ion-card>
+          <ion-card-header>
+            Comparativa por Articulo
+          </ion-card-header>
+          <ion-card-content>
+            <canvas #lineCanvasArticulo></canvas>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

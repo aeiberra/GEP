@@ -1,0 +1,162 @@
+  <!--
+Generated template for the AddClientPage page.
+
+See http://ionicframework.com/docs/components/#navigation for more info on
+Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ title }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-item style="text-align: center;">
+              <span class="result rounded" [hidden]="data1.image || !photoClient">
+                <img [src]="photoClient" [width]="cropperSettings1.croppedWidth" [height]="cropperSettings1.croppedHeight" (click)="openImage()">
+            </span>
+              <span class="result rounded" [hidden]="!data1.image">
+                <img [src]="data1.image" [width]="cropperSettings1.croppedWidth" [height]="cropperSettings1.croppedHeight" (click)="openImage()">
+            </span>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list class="listClient">
+            <ion-item>
+              <ion-label >{{'code'|translate}}</ion-label>
+              <ion-input name="code" ngModel="{{ codeClient }}" type="text" required #first="ngModel"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label >{{'name'|translate}}</ion-label>
+              <ion-input name="name" ngModel="{{ nameClient }}" type="text" required ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label >{{'lastName'|translate}}</ion-label>
+              <ion-input name="surname"  ngModel="{{ surnameClient }}" required type="text"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-item style="border-bottom: 1px solid #dedede">
+              <ion-label>{{'country'|translate}}</ion-label>
+              <ion-select  name="country"  ngModel="{{ countryClient }}" (ngModelChange)="httpProvider.getProvince($event)" >
+                <ion-option *ngFor="let c of httpProvider.countries" value="{{ c.id }}" (ionSelect)="getName('country',c.name)">{{ c.name }}</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-item style="    border-bottom: 1px solid #dedede">
+              <ion-label>{{'province'|translate}}</ion-label>
+              <ion-select name="province"  ngModel="{{ provinceClient }}"  (ngModelChange)="getPlace($event)" [disabled]="!httpProvider.provincesActive">
+                <ion-option *ngFor="let p of httpProvider.provinces" value="{{ p.id }}" (ionSelect)="getName('province',p.name)">{{ p.name }}</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-item style="    border-bottom: 1px solid #dedede">
+              <ion-label>{{'place'|translate}}</ion-label>
+              <ion-select name="place"  ngModel="{{ placeClient }}" (ngModelChange)="getCity($event)" [disabled]="!httpProvider.placesActive">
+                <ion-option *ngFor="let pl of httpProvider.places" value="{{ pl.id }}" (ionSelect)="getName('place',pl.name)">{{ pl.name }}</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+          <ion-list>
+            <ion-item style="    border-bottom: 1px solid #dedede">
+              <ion-label>{{'city'|translate}}</ion-label>
+              <ion-select name="city"  ngModel="{{ cityClient }}" (ngModelChange)="selectedCity($event)" [disabled]="!httpProvider.cityActive">
+                <ion-option *ngFor="let c of httpProvider.city" value="{{ c.id }}" (ionSelect)="getName('city',c.name)">{{ c.name }}</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-9 col-md-9 col-lg-9>
+          <ion-list>
+            <ion-item>
+              <ion-label >{{'address'|translate}}</ion-label>
+              <ion-input  name="address"  ngModel="{{ addressClient }}" required type="text"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 col-sm-3 col-md-3 col-lg-3>
+          <ion-list>
+            <ion-item>
+              <ion-label >{{'postalcode'|translate}}</ion-label>
+              <ion-input   name="postalCode"  ngModel="{{ postalCodeClient }}" type="text"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col col-12 id="createMap">
+          <div id="mapClient" class="mapboxgl-map"></div>
+        </ion-col>
+
+          <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+            <ion-list>
+              <ion-item>
+                <ion-label ><ion-icon name="mail"></ion-icon></ion-label>
+                <ion-input   name="email"  ngModel="{{ emailClient }}"  type="text"></ion-input>
+              </ion-item>
+            </ion-list>
+          </ion-col>
+          <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+            <ion-list>
+              <ion-item>
+                <ion-label ><ion-icon name="call"></ion-icon></ion-label>
+                <ion-input  name="phone" ngModel="{{ phoneClient }}"  type="text"></ion-input>
+              </ion-item>
+            </ion-list>
+          </ion-col>
+          <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+            <ion-list>
+              <ion-item>
+                <ion-label>{{'id'|translate}}</ion-label>
+                <ion-input  name="id" ngModel="{{ idClient }}"  type="text"></ion-input>
+              </ion-item>
+            </ion-list>
+          </ion-col>
+          <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+            <ion-list>
+              <ion-item>
+                <ion-label >Cuit</ion-label>
+                <ion-input  name="cuit" ngModel="{{ cuitClient }}"  type="text"></ion-input>
+              </ion-item>
+            </ion-list>
+          </ion-col>
+          <ion-col col-12 col-sm-12 col-md-6 col-lg-6>
+            <ion-list>
+              <ion-item style="border-bottom: 1px solid #dedede">
+                <ion-label>{{'seller'|translate}}</ion-label>
+                <ion-select  name="sellers" [(ngModel)]="sellersClient" >
+                  <ion-option *ngFor="let c of (sellers | async)" value="{{ c.key }}" >{{ c.name }}</ion-option>
+                </ion-select>
+              </ion-item>
+            </ion-list>
+          </ion-col>
+
+      </ion-row>
+    </ion-grid>
+
+
+    <button type="submit" ion-button>{{'save'|translate}}</button>
+    <button ion-button color="danger" (click)="f.resetForm()" onclick="event.stopPropagation();event.preventDefault()">{{'erase'|translate}}</button>
+
+  </form>
+
+
+
+</ion-content>

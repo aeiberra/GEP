@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="close()">
+        <ion-icon name="close-circle" color="danger"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-title>
+      {{'uploadImage'|translate}}
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="uploadImage()" [disabled]="!data1.image">
+        <ion-icon name="checkmark-circle" color="primary"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-card-content>
+    <ion-list>
+      <ion-item id="cropper-measure" [hidden]="!data1.image">
+        <img-cropper #cropper [image]="data1" [settings]="cropperSettings1"></img-cropper>
+      </ion-item>
+      <span class="result rounded" [hidden]="data1.image || !photoMeasure">
+            <img [src]="photoMeasure" [width]="cropperSettings1.croppedWidth" [height]="cropperSettings1.croppedHeight">
+      </span>
+      <ion-item id="cropper-measure-crop" *ngIf="false">
+        <span class="result rounded" *ngIf="data1.image" >
+            <img [src]="data1.image" [width]="cropperSettings1.croppedWidth" [height]="cropperSettings1.croppedHeight">
+          </span>
+      </ion-item>
+      <ion-item >
+        <div class="file-upload">
+          <button ion-button>{{'selectImage'|translate}}</button>
+          <input id="custom-input" type="file" (change)="fileChangeListener($event)">
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-content>
+

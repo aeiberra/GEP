@@ -1,0 +1,118 @@
+page-add-article {
+  #grid2-addArticle{
+    .list-ios > .item-block:last-child{
+      border:0
+    }
+    .list-ios > .item-block:first-child{
+      border: 0;
+
+    }
+    .list-md > .item-block:last-child{
+      border: 0;
+    }
+    .list-md > .item-block:first-child{
+      border: 0;
+    }
+  }
+
+  .file-upload{
+    position: relative;
+
+    #custom-input{
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      opacity: 0;
+      z-index: 100;
+      cursor: pointer;
+    }
+  }
+  #cropper-article{
+    min-width: 300px;
+    min-height: 300px;
+    input{
+      position: absolute;
+      height: 0;
+      width: 0;
+      opacity: 0;
+      z-index: -100;
+    }
+  }
+  #cropper-article-crop{
+    width: 300px!important;
+    height: 300px!important;
+    min-width: 300px!important;
+    min-height: 300px!important;
+    max-width: 300px!important;
+    max-height: 300px!important;
+    padding: 0;
+    margin: 0;
+    ion-item{
+      padding: 0;
+      margin: 0;
+    }
+    ion-label{
+      padding: 0;
+      margin: 0;
+    }
+    div{
+      padding: 0;
+      margin: 0;
+    }
+
+    img{
+      border-radius: 50%;
+      width: 300px!important;
+      height: 300px!important;
+      min-width: 300px!important;
+      min-height: 300px!important;
+      max-width: 300px!important;
+      max-height: 300px!important;
+    }
+  }
+  .rounded img{
+    border-radius: 50%;
+    width: 150px!important;
+    height: 150px!important;
+    min-width: 150px!important;
+    min-height: 150px!important;
+    max-width: 150px!important;
+    max-height: 150px!important;
+  }
+  .listArticle .item-block{
+    padding-left: 0!important;
+  }
+  ion-card-header{
+    .button{
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      width: 40px;
+      span{
+        margin-left: 12px;
+      }
+    }
+  }
+  #relation-brandAdd{
+    .col{
+      padding: 0!important;
+    }
+    .item-inner{
+      border-bottom: none;
+    }
+  }
+  #relation-measureAdd{
+    .col{
+      padding: 0!important;
+    }
+    .item-inner{
+      border-bottom: none;
+    }
+  }
+  .input-measure{
+    border: none;
+    border-bottom: 1px solid #488aff;
+  }
+}

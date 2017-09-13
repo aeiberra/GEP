@@ -1,0 +1,75 @@
+<ion-card style="box-shadow:none;">
+
+  <ion-item>
+    <ion-avatar item-start>
+      <img [defaultImage]="'../../assets/icon/spinner.gif'" [lazyLoad]="navParams.data?.image?.path || '../../assets/icon/deposit.png'">
+    </ion-avatar>
+    <h2>{{ navParams.data?.name }}</h2>
+    <p>{{ navParams.data?.phone }}</p>
+  </ion-item>
+
+  <!--<img src="img/advance-card-bttf.png">-->
+
+  <ion-card-content>
+    <ion-list>
+      <ion-item>
+        <ion-icon name="barcode" item-start></ion-icon>
+        {{'code'|translate}}
+        <ion-note item-end>{{ navParams.data?.code }}</ion-note>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="list" item-start></ion-icon>
+        {{'priceList'|translate}}
+        <ion-note item-end>{{ navParams.data?.priceList?.name }}</ion-note>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="mail" item-start></ion-icon>
+        {{'email'|translate}}
+        <ion-note item-end>{{ navParams.data?.email }}</ion-note>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="home" item-start></ion-icon>
+        {{'address'|translate}}
+        <ion-note item-end>{{ navParams.data?.address[0]?.address }}</ion-note>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="home" item-start></ion-icon>
+        {{'postalcode'|translate}}
+        <ion-note item-end>{{ navParams.data?.address[0]?.cp }}</ion-note>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="map" item-start></ion-icon>
+        <div>{{'locationData'|translate}}</div>
+        <ion-note style="white-space: normal;">{{ navParams.data?.address[0]?.city?.name + ', ' + navParams.data.address[0]?.place?.name + ', ' + navParams.data?.address[0]?.province?.name + ', ' + navParams.data?.address[0]?.country?.name }}</ion-note>
+      </ion-item>
+
+    </ion-list>
+  </ion-card-content>
+
+  <ion-row>
+    <ion-col>
+      <button ion-button icon-left clear small (click)="editBranch(navParams.data)">
+        <ion-icon name="md-create"></ion-icon>
+        <div>{{'edit'|translate}}</div>
+      </button>
+    </ion-col>
+    <ion-col>
+      <button ion-button icon-left clear small (click)="generateBranchToken(navParams.data)">
+        <ion-icon name="md-create"></ion-icon>
+        <div>{{'generateToken'|translate}}</div>
+      </button>
+    </ion-col>
+    <ion-col>
+      <button ion-button color="danger" icon-left clear small (click)="deleteBranch(navParams.data)">
+        <ion-icon name="trash"></ion-icon>
+        <div>{{'deleteObject'|translate}}</div>
+      </button>
+    </ion-col>
+  </ion-row>
+
+</ion-card>
