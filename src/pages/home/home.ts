@@ -58,36 +58,37 @@ export class Home {
         this.statusBar.overlaysWebView(true);
         this.statusBar.backgroundColorByHexString(this.color());
 
-        const checking = this.loadingCtrl.create({
-          content: 'Checking for update...'
-        });
-        checking.present();
-
-        this.timeOut = setTimeout(()=>{
-          const toast = this.toastCtrl.create({
-            message: 'No update available',
-            duration: 3000
-          });
-          checking.dismiss();
-          toast.present();
-          this.goRoot();
-        },90000);
-        this.deploy.check().then((snapshotAvailable: boolean) => {
-          clearTimeout(this.timeOut);
-          checking.dismiss();
-          if (snapshotAvailable) {
-
-          this.alert();
-
-          } else {
-            const toast = this.toastCtrl.create({
-              message: 'No update available',
-              duration: 3000
-            });
-            toast.present();
-            this.goRoot();
-          }
-        });
+        // const checking = this.loadingCtrl.create({
+        //   content: 'Checking for update...'
+        // });
+        // checking.present();
+        //
+        // this.timeOut = setTimeout(()=>{
+        //   const toast = this.toastCtrl.create({
+        //     message: 'No update available',
+        //     duration: 3000
+        //   });
+        //   checking.dismiss();
+        //   toast.present();
+        //   this.goRoot();
+        // },90000);
+        // this.deploy.check().then((snapshotAvailable: boolean) => {
+        //   clearTimeout(this.timeOut);
+        //   checking.dismiss();
+        //   if (snapshotAvailable) {
+        //
+        //   this.alert();
+        //
+        //   } else {
+        //     const toast = this.toastCtrl.create({
+        //       message: 'No update available',
+        //       duration: 3000
+        //     });
+        //     toast.present();
+        //     this.goRoot();
+        //   }
+        // });
+        this.goRoot(); // Quitar
       } else{
         this.goRoot();
       }
